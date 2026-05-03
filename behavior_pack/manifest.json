@@ -1,0 +1,23 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Larson's Trees Behavior",
+    "description": "Branch blocks for every vanilla wood type.",
+    "uuid": "c56f2921-71ef-4e65-97ad-6ffb4e8ca5d4",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "47e25621-cca9-4078-bcc9-20f83730f49b",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "2d8e2293-74a1-44e2-8600-1364a274c590",
+      "version": [1, 0, 0]
+    }
+  ]
+}

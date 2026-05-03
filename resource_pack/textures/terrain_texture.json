@@ -1,0 +1,74 @@
+{
+  "resource_pack_name": "larsons_trees",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "larsons_oak_log_side": {
+      "textures": "textures/blocks/log_oak"
+    },
+    "larsons_spruce_log_side": {
+      "textures": "textures/blocks/log_spruce"
+    },
+    "larsons_birch_log_side": {
+      "textures": "textures/blocks/log_birch"
+    },
+    "larsons_jungle_log_side": {
+      "textures": "textures/blocks/log_jungle"
+    },
+    "larsons_acacia_log_side": {
+      "textures": "textures/blocks/log_acacia"
+    },
+    "larsons_dark_oak_log_side": {
+      "textures": "textures/blocks/log_big_oak"
+    },
+    "larsons_mangrove_log_side": {
+      "textures": "textures/blocks/mangrove_log_side"
+    },
+    "larsons_cherry_log_side": {
+      "textures": "textures/blocks/cherry_log_side"
+    },
+    "larsons_pale_oak_log_side": {
+      "textures": "textures/blocks/pale_oak_log"
+    },
+    "larsons_crimson_log_side": {
+      "textures": "textures/blocks/crimson_log_side"
+    },
+    "larsons_warped_log_side": {
+      "textures": "textures/blocks/warped_stem"
+    },
+    "larsons_stripped_oak_log_side": {
+      "textures": "textures/blocks/stripped_oak_log"
+    },
+    "larsons_stripped_spruce_log_side": {
+      "textures": "textures/blocks/stripped_spruce_log"
+    },
+    "larsons_stripped_birch_log_side": {
+      "textures": "textures/blocks/stripped_birch_log"
+    },
+    "larsons_stripped_jungle_log_side": {
+      "textures": "textures/blocks/stripped_jungle_log"
+    },
+    "larsons_stripped_acacia_log_side": {
+      "textures": "textures/blocks/stripped_acacia_log"
+    },
+    "larsons_stripped_dark_oak_log_side": {
+      "textures": "textures/blocks/stripped_dark_oak_log"
+    },
+    "larsons_stripped_mangrove_log_side": {
+      "textures": "textures/blocks/stripped_mangrove_log_side"
+    },
+    "larsons_stripped_cherry_log_side": {
+      "textures": "textures/blocks/stripped_cherry_log_side"
+    },
+    "larsons_stripped_pale_oak_log_side": {
+      "textures": "textures/blocks/stripped_pale_oak_log"
+    },
+    "larsons_stripped_crimson_log_side": {
+      "textures": "textures/blocks/stripped_crimson_stem"
+    },
+    "larsons_stripped_warped_log_side": {
+      "textures": "textures/blocks/stripped_warped_stem"
+    }
+  }
+}

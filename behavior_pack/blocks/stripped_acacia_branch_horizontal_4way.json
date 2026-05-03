@@ -1,0 +1,55 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:block": {
+    "description": {
+      "identifier": "larsons:stripped_acacia_branch_horizontal_4way",
+      "menu_category": {
+        "category": "nature",
+        "group": "minecraft:itemGroup.name.log"
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.branch_h4",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "larsons_stripped_acacia_log_side",
+          "render_method": "alpha_test",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        }
+      },
+      "minecraft:collision_box": {
+        "origin": [
+          -3,
+          0,
+          -8
+        ],
+        "size": [
+          6,
+          16,
+          16
+        ]
+      },
+      "minecraft:selection_box": {
+        "origin": [
+          -3,
+          0,
+          -8
+        ],
+        "size": [
+          6,
+          16,
+          16
+        ]
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 2.0
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 2.0
+      },
+      "minecraft:light_dampening": 0,
+      "minecraft:map_color": "#6B4F2A"
+    }
+  }
+}

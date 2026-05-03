@@ -1,0 +1,23 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Larson's Trees Resources",
+    "description": "Branch blocks for every vanilla wood type.",
+    "uuid": "2d8e2293-74a1-44e2-8600-1364a274c590",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "1c905218-86ff-4949-9a4c-a8448dad0cd8",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "c56f2921-71ef-4e65-97ad-6ffb4e8ca5d4",
+      "version": [1, 0, 0]
+    }
+  ]
+}
