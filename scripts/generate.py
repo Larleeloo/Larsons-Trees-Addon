@@ -3,7 +3,6 @@
 Larson's Trees addon. Run from repo root: python3 scripts/generate.py"""
 
 import json
-import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -20,9 +19,9 @@ WOODS = [
     ("dark_oak",         "textures/blocks/log_big_oak",              "Dark Oak"),
     ("mangrove",         "textures/blocks/mangrove_log_side",        "Mangrove"),
     ("cherry",           "textures/blocks/cherry_log_side",          "Cherry"),
-    ("pale_oak",         "textures/blocks/pale_oak_log",             "Pale Oak"),
-    ("crimson",          "textures/blocks/crimson_log_side",         "Crimson"),
-    ("warped",           "textures/blocks/warped_stem",              "Warped"),
+    ("pale_oak",         "textures/blocks/pale_oak_log_side",        "Pale Oak"),
+    ("crimson",          "textures/blocks/huge_fungus/crimson_log_side",     "Crimson"),
+    ("warped",           "textures/blocks/huge_fungus/warped_stem_side",     "Warped"),
     ("stripped_oak",         "textures/blocks/stripped_oak_log",          "Stripped Oak"),
     ("stripped_spruce",      "textures/blocks/stripped_spruce_log",       "Stripped Spruce"),
     ("stripped_birch",       "textures/blocks/stripped_birch_log",        "Stripped Birch"),
@@ -31,22 +30,85 @@ WOODS = [
     ("stripped_dark_oak",    "textures/blocks/stripped_dark_oak_log",     "Stripped Dark Oak"),
     ("stripped_mangrove",    "textures/blocks/stripped_mangrove_log_side","Stripped Mangrove"),
     ("stripped_cherry",      "textures/blocks/stripped_cherry_log_side",  "Stripped Cherry"),
-    ("stripped_pale_oak",    "textures/blocks/stripped_pale_oak_log",     "Stripped Pale Oak"),
-    ("stripped_crimson",     "textures/blocks/stripped_crimson_stem",     "Stripped Crimson"),
-    ("stripped_warped",      "textures/blocks/stripped_warped_stem",      "Stripped Warped"),
+    ("stripped_pale_oak",    "textures/blocks/stripped_pale_oak_log_side",        "Stripped Pale Oak"),
+    ("stripped_crimson",     "textures/blocks/huge_fungus/stripped_crimson_stem_side", "Stripped Crimson"),
+    ("stripped_warped",      "textures/blocks/huge_fungus/stripped_warped_stem_side",  "Stripped Warped"),
 ]
 
-# (suffix, geometry id, hitbox origin, hitbox size, display suffix)
-# Hitbox is the AABB union of all cubes in the geometry, accounting for rotation.
+# Each geometry has three pillar-axis hitboxes (Y default, plus X and Z rotated
+# variants). Origin/size are AABB unions of all cubes after applying the
+# corresponding minecraft:transformation rotation around the block center
+# [0, 8, 0]. Coordinates are in 1/16-block units, X/Z centered at 0, Y in 0..16.
+#
+# Rotation map:
+#   y axis: no rotation
+#   z axis: rotation [90, 0, 0]   -> (x, y, z) -> (x, 8 - z, y - 8)
+#   x axis: rotation [0, 0, 90]   -> (x, y, z) -> (8 - y, x + 8, z)
+#
+# (suffix, geometry id, display suffix, hitboxes_by_axis)
 GEOS = [
-    ("",                    "geometry.branch",    [-3, 0, -3], [ 6, 16,  6], ""),
-    ("_vertical_l",         "geometry.branch_vl", [-8, 0, -3], [11, 16,  6], " (Vertical L)"),
-    ("_vertical_4way",      "geometry.branch_v4", [-8, 0, -3], [16, 16,  6], " (Vertical 4-Way)"),
-    ("_horizontal_l",       "geometry.branch_hl", [-3, 0, -3], [ 6, 16, 11], " (Horizontal L)"),
-    ("_horizontal_4way",    "geometry.branch_h4", [-3, 0, -8], [ 6, 16, 16], " (Horizontal 4-Way)"),
+    (
+        "", "geometry.branch", "",
+        {
+            "y": ([-3, 0, -3], [ 6, 16,  6]),
+            "z": ([-3, 5, -8], [ 6,  6, 16]),
+            "x": ([-8, 5, -3], [16,  6,  6]),
+        },
+    ),
+    (
+        "_vertical_l", "geometry.branch_vl", " (Vertical L)",
+        {
+            "y": ([-8, 0, -3], [11, 16,  6]),
+            "z": ([-8, 5, -8], [11,  6, 16]),
+            "x": ([-8, 0, -3], [16, 11,  6]),
+        },
+    ),
+    (
+        "_vertical_4way", "geometry.branch_v4", " (Vertical 4-Way)",
+        {
+            "y": ([-8, 0, -3], [16, 16,  6]),
+            "z": ([-8, 5, -8], [16,  6, 16]),
+            "x": ([-8, 0, -3], [16, 16,  6]),
+        },
+    ),
+    (
+        "_horizontal_l", "geometry.branch_hl", " (Horizontal L)",
+        {
+            "y": ([-3, 0, -3], [ 6, 16, 11]),
+            "z": ([-3, 0, -8], [ 6, 11, 16]),
+            "x": ([-8, 5, -3], [16,  6, 11]),
+        },
+    ),
+    (
+        "_horizontal_4way", "geometry.branch_h4", " (Horizontal 4-Way)",
+        {
+            "y": ([-3, 0, -8], [ 6, 16, 16]),
+            "z": ([-3, 0, -8], [ 6, 16, 16]),
+            "x": ([-8, 5, -8], [16,  6, 16]),
+        },
+    ),
 ]
 
 NAMESPACE = "larsons"
+
+# Mapping from clicked block_face to placement axis (matches vanilla pillar
+# logs: clicking the top/bottom places vertical, clicking a side places
+# horizontal along that face's axis).
+AXIS_BY_FACE = {
+    "up":    "y",
+    "down":  "y",
+    "north": "z",
+    "south": "z",
+    "east":  "x",
+    "west":  "x",
+}
+
+# Rotation applied via minecraft:transformation for each axis.
+ROTATION_BY_AXIS = {
+    "y": [0, 0,  0],
+    "z": [90, 0, 0],
+    "x": [0, 0, 90],
+}
 
 
 def write_json(path: Path, data) -> None:
@@ -74,17 +136,46 @@ def build_terrain_texture():
     write_json(RP / "textures" / "terrain_texture.json", data)
 
 
-def build_block(wood_id: str, geo_suffix: str, geo_id: str,
-                origin, size) -> dict:
+def build_axis_permutations(hitboxes):
+    """Return one permutation per pillar axis. Faces sharing an axis are OR'd
+    together so a single permutation covers both clicked-face values."""
+    faces_by_axis = {}
+    for face, axis in AXIS_BY_FACE.items():
+        faces_by_axis.setdefault(axis, []).append(face)
+
+    permutations = []
+    for axis in ("y", "z", "x"):
+        faces = faces_by_axis[axis]
+        condition = " || ".join(
+            f"q.block_state('minecraft:block_face') == '{f}'" for f in faces
+        )
+        origin, size = hitboxes[axis]
+        components = {
+            "minecraft:transformation": {
+                "rotation": ROTATION_BY_AXIS[axis],
+            },
+            "minecraft:collision_box": {"origin": origin, "size": size},
+            "minecraft:selection_box": {"origin": origin, "size": size},
+        }
+        permutations.append({"condition": condition, "components": components})
+    return permutations
+
+
+def build_block(wood_id: str, geo_suffix: str, geo_id: str, hitboxes) -> dict:
     identifier = f"{NAMESPACE}:{wood_id}_branch{geo_suffix}"
     return {
-        "format_version": "1.20.10",
+        "format_version": "1.21.40",
         "minecraft:block": {
             "description": {
                 "identifier": identifier,
                 "menu_category": {
                     "category": "nature",
                     "group": "itemGroup.name.log",
+                },
+                "traits": {
+                    "minecraft:placement_position": {
+                        "enabled_states": ["minecraft:block_face"],
+                    },
                 },
             },
             "components": {
@@ -97,27 +188,20 @@ def build_block(wood_id: str, geo_suffix: str, geo_id: str,
                         "face_dimming": True,
                     }
                 },
-                "minecraft:collision_box": {
-                    "origin": origin,
-                    "size": size,
-                },
-                "minecraft:selection_box": {
-                    "origin": origin,
-                    "size": size,
-                },
                 "minecraft:destructible_by_mining": {"seconds_to_destroy": 2.0},
                 "minecraft:destructible_by_explosion": {"explosion_resistance": 2.0},
                 "minecraft:light_dampening": 0,
                 "minecraft:map_color": "#6B4F2A",
             },
+            "permutations": build_axis_permutations(hitboxes),
         },
     }
 
 
 def build_blocks():
     for wood_id, _tex_path, _wood_name in WOODS:
-        for geo_suffix, geo_id, origin, size, _disp in GEOS:
-            block = build_block(wood_id, geo_suffix, geo_id, origin, size)
+        for geo_suffix, geo_id, _disp, hitboxes in GEOS:
+            block = build_block(wood_id, geo_suffix, geo_id, hitboxes)
             filename = f"{wood_id}_branch{geo_suffix}.json"
             write_json(BP / "blocks" / filename, block)
 
@@ -125,7 +209,7 @@ def build_blocks():
 def build_lang():
     lines = ["## Larson's Trees Addon"]
     for wood_id, _tex, wood_name in WOODS:
-        for geo_suffix, _geo_id, _o, _s, disp in GEOS:
+        for geo_suffix, _geo_id, disp, _hitboxes in GEOS:
             ident = f"{NAMESPACE}:{wood_id}_branch{geo_suffix}"
             label = f"{wood_name} Branch{disp}"
             lines.append(f"tile.{ident}.name={label}")
