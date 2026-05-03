@@ -78,13 +78,13 @@ def build_block(wood_id: str, geo_suffix: str, geo_id: str,
                 origin, size) -> dict:
     identifier = f"{NAMESPACE}:{wood_id}_branch{geo_suffix}"
     return {
-        "format_version": "1.21.40",
+        "format_version": "1.20.10",
         "minecraft:block": {
             "description": {
                 "identifier": identifier,
                 "menu_category": {
                     "category": "nature",
-                    "group": "minecraft:itemGroup.name.log",
+                    "group": "itemGroup.name.log",
                 },
             },
             "components": {

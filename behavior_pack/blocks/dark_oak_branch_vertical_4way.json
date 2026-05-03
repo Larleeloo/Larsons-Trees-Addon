@@ -1,11 +1,11 @@
 {
-  "format_version": "1.21.40",
+  "format_version": "1.20.10",
   "minecraft:block": {
     "description": {
       "identifier": "larsons:dark_oak_branch_vertical_4way",
       "menu_category": {
         "category": "nature",
-        "group": "minecraft:itemGroup.name.log"
+        "group": "itemGroup.name.log"
       }
     },
     "components": {
