@@ -19,9 +19,9 @@ WOODS = [
     ("dark_oak",         "textures/blocks/log_big_oak",              "Dark Oak"),
     ("mangrove",         "textures/blocks/mangrove_log_side",        "Mangrove"),
     ("cherry",           "textures/blocks/cherry_log_side",          "Cherry"),
-    ("pale_oak",         "textures/blocks/pale_oak_log",             "Pale Oak"),
-    ("crimson",          "textures/blocks/crimson_log_side",         "Crimson"),
-    ("warped",           "textures/blocks/warped_stem",              "Warped"),
+    ("pale_oak",         "textures/blocks/pale_oak_log_side",        "Pale Oak"),
+    ("crimson",          "textures/blocks/huge_fungus/crimson_log_side",     "Crimson"),
+    ("warped",           "textures/blocks/huge_fungus/warped_stem_side",     "Warped"),
     ("stripped_oak",         "textures/blocks/stripped_oak_log",          "Stripped Oak"),
     ("stripped_spruce",      "textures/blocks/stripped_spruce_log",       "Stripped Spruce"),
     ("stripped_birch",       "textures/blocks/stripped_birch_log",        "Stripped Birch"),
@@ -30,9 +30,9 @@ WOODS = [
     ("stripped_dark_oak",    "textures/blocks/stripped_dark_oak_log",     "Stripped Dark Oak"),
     ("stripped_mangrove",    "textures/blocks/stripped_mangrove_log_side","Stripped Mangrove"),
     ("stripped_cherry",      "textures/blocks/stripped_cherry_log_side",  "Stripped Cherry"),
-    ("stripped_pale_oak",    "textures/blocks/stripped_pale_oak_log",     "Stripped Pale Oak"),
-    ("stripped_crimson",     "textures/blocks/stripped_crimson_stem",     "Stripped Crimson"),
-    ("stripped_warped",      "textures/blocks/stripped_warped_stem",      "Stripped Warped"),
+    ("stripped_pale_oak",    "textures/blocks/stripped_pale_oak_log_side",        "Stripped Pale Oak"),
+    ("stripped_crimson",     "textures/blocks/huge_fungus/stripped_crimson_stem_side", "Stripped Crimson"),
+    ("stripped_warped",      "textures/blocks/huge_fungus/stripped_warped_stem_side",  "Stripped Warped"),
 ]
 
 # Each geometry has three pillar-axis hitboxes (Y default, plus X and Z rotated

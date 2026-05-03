@@ -29,13 +29,13 @@
       "textures": "textures/blocks/cherry_log_side"
     },
     "larsons_pale_oak_log_side": {
-      "textures": "textures/blocks/pale_oak_log"
+      "textures": "textures/blocks/pale_oak_log_side"
     },
     "larsons_crimson_log_side": {
-      "textures": "textures/blocks/crimson_log_side"
+      "textures": "textures/blocks/huge_fungus/crimson_log_side"
     },
     "larsons_warped_log_side": {
-      "textures": "textures/blocks/warped_stem"
+      "textures": "textures/blocks/huge_fungus/warped_stem_side"
     },
     "larsons_stripped_oak_log_side": {
       "textures": "textures/blocks/stripped_oak_log"
@@ -62,13 +62,13 @@
       "textures": "textures/blocks/stripped_cherry_log_side"
     },
     "larsons_stripped_pale_oak_log_side": {
-      "textures": "textures/blocks/stripped_pale_oak_log"
+      "textures": "textures/blocks/stripped_pale_oak_log_side"
     },
     "larsons_stripped_crimson_log_side": {
-      "textures": "textures/blocks/stripped_crimson_stem"
+      "textures": "textures/blocks/huge_fungus/stripped_crimson_stem_side"
     },
     "larsons_stripped_warped_log_side": {
-      "textures": "textures/blocks/stripped_warped_stem"
+      "textures": "textures/blocks/huge_fungus/stripped_warped_stem_side"
     }
   }
 }
